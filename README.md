@@ -17,8 +17,9 @@
   ## License
   This product uses a MIT license
 
-  ## Demo
-  <img src="assets/images/n/a">
+  ## Deployed Link
+  https://chrischo94.github.io/Weather/
+
 
   ## Questions
   For additional questions feel free to contact: chrischo2012@gmail.com
