@@ -3,6 +3,7 @@ var searchInputVal = document.querySelector('#search-input').value
 const baseUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat='
 const apiKey = '&appid=6d7fe1885740c345686c5b56cbcda38f';
 const searchBtn = document.querySelector('.btn');
+var searchHistory = document.querySelector('.search-history');
 var currentDay = moment().format("MM/DD/YYYY");
 // let today = moment().format('1')
 // let todayTemp = document.querySelector(".temp");
@@ -44,7 +45,7 @@ var currentDay = moment().format("MM/DD/YYYY");
 // let friHumid = document.querySelector(".friHum");
 // let friWind = document.querySelector(".friWind");
 
-
+var saveCities = [];
 const weatherNow = [];
 
 function getLatLong(searchInputVal) {
@@ -115,6 +116,14 @@ function currentWeather(data){
   
     document.querySelector('.showtheWeather').appendChild(createWeatherDiv);
 }
+function saveSearch(){
+    var searched = document.createElement('button');
+    searched.classList.add('card', 'btn');
+    searched.textContent = searchInputVal;
+    searched.addEventListener('click', handleSearchFormSubmit);
+    searchHistory.appendChild(searched);
+}
+
 function handleSearchFormSubmit(event) {
     event.preventDefault();
     searchInputVal = document.querySelector('#search-input').value;
@@ -123,7 +132,11 @@ function handleSearchFormSubmit(event) {
     if (!searchInputVal) {
 
         console.log("Enter a valid city")
+    } else {
+        saveCities.push(searchInputVal)
+        localStorage.setItem("saveCities", JSON.stringify(saveCities))
     }
     getLatLong(searchInputVal);
+    saveSearch()
 }
 searchBtn.addEventListener('click', handleSearchFormSubmit);
