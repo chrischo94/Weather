@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link rel="stylesheet" href="./style.css">
   </head>
 <body>
@@ -19,7 +20,7 @@
                 <div class="col-3 searchContainer">
                     <div class="col-12"><p>Search for a City</p></div>
                     <form class="row col-12">
-                        <input class="row input-text search-input" type="text" placeholder="San Diego" aria-label="Search">
+                        <input class="row form-input" id="search-input" type="text" placeholder="San Diego">
                         <button class="row btn btn-primary" id="searchBtn" type="submit">Search</button>
                     </form>
                 </div>
@@ -27,15 +28,15 @@
                 
                     <div class="col-12 showtheWeather">
                         <div class="col-12 container">
-                            <i><img id="icon"></i>
-                            <div class="city"></div>
-                            <div class="temp"></div>
-                            <div class="hum"></div>
-                            <div class="wind"></div>
+                            <i><img id="cicon"></i>
+                            <div class="ccity"></div>
+                            <div class="ctemp"></div>
+                            <div class="chum"></div>
+                            <div class="cwind"></div>
                             
                         </div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <h5>5 Day-Forecast</h5>
                         <div id="mon">
                             <ul>
@@ -76,8 +77,8 @@
                                 <li class="friHum"><img id="friHum"></li>
                                 <li class="friWind"><img id="friWind"></li>
                             </ul>
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
                 
 
                 </div>
@@ -102,6 +103,6 @@
    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-<script src="./assets/js/scritp.js"></script>
+<script src="./script.js"></script>
   </body>
 </html>

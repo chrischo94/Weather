@@ -1,8 +1,9 @@
 const searchInput = document.querySelector('#search-input')
 var searchInputVal = document.querySelector('#search-input').value
 const baseUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat='
-const apiKey = '&appid=6d7fe1885740c345686c5b56cbcda38f'
-
+const apiKey = '&appid=6d7fe1885740c345686c5b56cbcda38f';
+const searchBtn = document.querySelector('.btn');
+var currentDay = moment().format("MM/DD/YYYY");
 // let today = moment().format('1')
 // let todayTemp = document.querySelector(".temp");
 // let todayHumid = document.querySelector(".hum");
@@ -45,15 +46,16 @@ const apiKey = '&appid=6d7fe1885740c345686c5b56cbcda38f'
 
 
 const weatherNow = [];
-function getLatLong(searchInput) {
-    var latLong = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInput + apiKey;
+
+function getLatLong(searchInputVal) {
+    var latLong = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchInputVal + apiKey;
     fetch(latLong)
-        .then(function (data) {
-            return data.json()
+        .then(function (response) {
+            return response.json()
         })
         .then(function (data) {
             var lat = data[0].lat
-            var long = data[0].long
+            var long = "&lon=" + data[0].lon
             getWeather(lat, long)
         })
 }
@@ -65,20 +67,22 @@ function getWeather(lat, long) {
         })
         .then(function (data) {
             var weather = {
-                ccity: data.timezone,
-                cicon: data.current.weather[0].icon,
-                ctemp: data.current.temp,
-                chum: data.current.humidity,
-                cwind: data.current.wind_speed
+                city: data.timezone,
+                icon: data.current.weather[0].icon,
+                temp: data.current.temp,
+                hum: data.current.humidity,
+                wind: data.current.wind_speed
             }
             weatherNow.push(weather)
+            currentWeather(data)
+            console.log(data.current.temp)
 
         }
         )
 }
-function weatherNow(data){
+function currentWeather(data){
     var createWeatherDiv = document.createElement('div');
-    weathResultDiv.className = 'weather-result float-child';
+    createWeatherDiv.className = 'weather-result float-child';
 
     var ccity = document.createElement('h4');
     ccity.textContent = data.timezone + ' ' + currentDay;
@@ -102,24 +106,24 @@ function weatherNow(data){
     cwind.textContent = "Wind Speed: " + data.current.wind_speed + " MPH";
     cwind.className = 'weather';
 
-    createWeatherDiv.appendChild(weathCity);
-    createWeatherDiv.appendChild(weathIcon);
-    createWeatherDiv.appendChild(weathTemp);
-    createWeatherDiv.appendChild(weathHum);
-    createWeatherDiv.appendChild(weathWind);
+    createWeatherDiv.appendChild(ccity);
+    createWeatherDiv.appendChild(cicon);
+    createWeatherDiv.appendChild(ctemp);
+    createWeatherDiv.appendChild(chum);
+    createWeatherDiv.appendChild(cwind);
     
   
-    document.querySelector('.result-content').appendChild(createWeatherDiv);
+    document.querySelector('.showtheWeather').appendChild(createWeatherDiv);
 }
 function handleSearchFormSubmit(event) {
     event.preventDefault();
-    searchInput = document.querySelector('#search-input').value;
+    searchInputVal = document.querySelector('#search-input').value;
 
 
     if (!searchInputVal) {
 
-        return;
+        console.log("Enter a valid city")
     }
-    getWeather();
+    getLatLong(searchInputVal);
 }
 searchBtn.addEventListener('click', handleSearchFormSubmit);
