@@ -3,45 +3,45 @@ var searchInputVal = document.querySelector('#search-input').value
 const baseUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat='
 const apiKey = '&appid=6d7fe1885740c345686c5b56cbcda38f'
 
-let today = moment().format('1')
-let todayTemp = document.querySelector(".temp");
-let todayHumid = document.querySelector(".hum");
-let todayWind = document.querySelector(".wind");
+// let today = moment().format('1')
+// let todayTemp = document.querySelector(".temp");
+// let todayHumid = document.querySelector(".hum");
+// let todayWind = document.querySelector(".wind");
 
 
-let monday = document.getElementById("mon").children[0];
-let mon = moment().add(1, 'days').calendar("l");
-let monTemp = document.querySelector(".monTemp");
-let monHumid = document.querySelector(".monHum");
-let monWind = document.querySelector(".monWind");
+// let monday = document.getElementById("mon").children[0];
+// let mon = moment().add(1, 'days').calendar("l");
+// let monTemp = document.querySelector(".monTemp");
+// let monHumid = document.querySelector(".monHum");
+// let monWind = document.querySelector(".monWind");
 
 
-let tuesday = document.getElementById("tue").children[0];
-let tue = moment().add(1, 'days').calendar("l");
-let tueTemp = document.querySelector(".tueTemp");
-let tueHumid = document.querySelector(".tueHum");
-let tueWind = document.querySelector(".tueWind");
+// let tuesday = document.getElementById("tue").children[0];
+// let tue = moment().add(1, 'days').calendar("l");
+// let tueTemp = document.querySelector(".tueTemp");
+// let tueHumid = document.querySelector(".tueHum");
+// let tueWind = document.querySelector(".tueWind");
 
 
-let wednesday = document.getElementById("wed").children[0];
-let wed = moment().add(1, 'days').calendar("l");
-let wedTemp = document.querySelector(".wedTemp");
-let wedHumid = document.querySelector(".wedHum");
-let wedWind = document.querySelector(".wedWind");
+// let wednesday = document.getElementById("wed").children[0];
+// let wed = moment().add(1, 'days').calendar("l");
+// let wedTemp = document.querySelector(".wedTemp");
+// let wedHumid = document.querySelector(".wedHum");
+// let wedWind = document.querySelector(".wedWind");
 
 
-let thursday = document.getElementById("thur").children[0];
-let thur = moment().add(1, 'days').calendar("l");
-let thurTemp = document.querySelector(".thurTemp");
-let thurHumid = document.querySelector(".thurHum");
-let thurWind = document.querySelector(".thurWind");
+// let thursday = document.getElementById("thur").children[0];
+// let thur = moment().add(1, 'days').calendar("l");
+// let thurTemp = document.querySelector(".thurTemp");
+// let thurHumid = document.querySelector(".thurHum");
+// let thurWind = document.querySelector(".thurWind");
 
 
-let friday = document.getElementById("fri").children[0];
-let fri = moment().add(1, 'days').calendar("l");
-let friTemp = document.querySelector(".friTemp");
-let friHumid = document.querySelector(".friHum");
-let friWind = document.querySelector(".friWind");
+// let friday = document.getElementById("fri").children[0];
+// let fri = moment().add(1, 'days').calendar("l");
+// let friTemp = document.querySelector(".friTemp");
+// let friHumid = document.querySelector(".friHum");
+// let friWind = document.querySelector(".friWind");
 
 
 const weatherNow = [];
@@ -65,25 +65,51 @@ function getWeather(lat, long) {
         })
         .then(function (data) {
             var weather = {
-                icon: data.current.weather[0].icon,
-                temp: data.current.temp,
-                hum: data.current.humidity,
-                wind: data.current.wind_speed
+                ccity: data.timezone,
+                cicon: data.current.weather[0].icon,
+                ctemp: data.current.temp,
+                chum: data.current.humidity,
+                cwind: data.current.wind_speed
             }
             weatherNow.push(weather)
 
         }
         )
 }
-function showWeather() {
-    let tempString = data.current.temp.toString();
-    todayTemp.textContent = "Temp: " + tempString + " Fahrenheit";
+function weatherNow(data){
+    var createWeatherDiv = document.createElement('div');
+    weathResultDiv.className = 'weather-result float-child';
 
-    let windString = data.current.wind_speed.toString();
-    todayWind.textContent = "Wind: " + windString + " MPH";
+    var ccity = document.createElement('h4');
+    ccity.textContent = data.timezone + ' ' + currentDay;
+    ccity.className = 'weather';
 
-    let humidString = data.current.humidity.toString();
-    todayHumid.textContent = "Humidity: " + humidString + " %";
+    var cicon = document.createElement('img');
+    cicon.src = "https://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
+    cicon.className = 'weather';
+
+    var ctemp = document.createElement('p');
+    ctemp.textContent = "Temp: " + data.current.temp + " °F";
+    ctemp.className = 'weather';
+
+ 
+
+    var chum = document.createElement('p');
+    chum.textContent = "Humidity: " + data.current.humidity + "%";
+    chum.className = 'weather';
+
+    var cwind = document.createElement('p');
+    cwind.textContent = "Wind Speed: " + data.current.wind_speed + " MPH";
+    cwind.className = 'weather';
+
+    createWeatherDiv.appendChild(weathCity);
+    createWeatherDiv.appendChild(weathIcon);
+    createWeatherDiv.appendChild(weathTemp);
+    createWeatherDiv.appendChild(weathHum);
+    createWeatherDiv.appendChild(weathWind);
+    
+  
+    document.querySelector('.result-content').appendChild(createWeatherDiv);
 }
 function handleSearchSubmit(event) {
     event.preventDefault();
