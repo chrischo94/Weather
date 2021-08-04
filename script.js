@@ -111,9 +111,9 @@ function weatherNow(data){
   
     document.querySelector('.result-content').appendChild(createWeatherDiv);
 }
-function handleSearchSubmit(event) {
+function handleSearchFormSubmit(event) {
     event.preventDefault();
-    searchInput = document.querySelector('.search-input').value;
+    searchInput = document.querySelector('#search-input').value;
 
 
     if (!searchInputVal) {
